@@ -2,7 +2,7 @@ var axiosBase = require( 'axios' );
 
 var env_apikey = 'APIKEY' in process.env ? process.env.APIKEY : ''; 
 var env_project_id = 'PROJECT_ID' in process.env ? process.env.PROJECT_ID : ''; 
-var env_model_id = 'MODEL_ID' in process.env ? process.env.MODEL_ID : 'ibm/mpt-7b-instruct2'; 
+var env_model_id = 'MODEL_ID' in process.env ? process.env.MODEL_ID : 'ibm/granite-13b-chat-v2'; 
 
 module.exports = function( RED ){
   async function getAccessToken( apikey ){
@@ -90,12 +90,22 @@ module.exports = function( RED ){
     var node = this;
     node.on( 'input', async function( msg ){
       node.status( { fill: "green", shape: "dot", text: "..." } );
-      var max_new_tokens = 100;
+      var max_new_tokens = 900;
       var text = msg.payload;
       var apikey = config.apikey;
       var model_id = config.model_id;
       var project_id = config.project_id;
       var only_firstline = config.only_firstline;
+
+      if( config.max_new_tokens ){
+        try{
+          var mnt = parseInt( config.max_new_tokens );
+          if( mnt ){
+            max_new_tokens = mnt;
+          }
+        }catch( e ){
+        }
+      }
 
       if( !apikey ){ apikey = env_apikey; }
       if( !project_id ){ project_id = env_project_id; }

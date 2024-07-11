@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-dotnsf-watsonxai",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "node-red": {
         "nodes": {
             "watsonxai": "node.js"
@@ -16,6 +16,7 @@
     "keywords": [
         "node-red",
         "dotnsf",
+        "granite",
         "watsonx",
         "watsonx.ai"
     ],

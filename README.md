@@ -35,5 +35,5 @@ This code is licensed under MIT.
 
 ## Copyright
 
-2023 K.Kimura @ Juge.Me all rights reserved.
+2023-2024 K.Kimura @ Juge.Me all rights reserved.
 

@@ -7,6 +7,7 @@
       apikey: { value: '' },
       project_id: { value: '' },
       model_id: { value: 'ibm/mpt-7b-instruct2' },
+      max_new_tokens: { value: 1000 },
       only_firstline: { value: false }
     },
     inputs: 1,
@@ -31,6 +32,9 @@
     <br/>
     <label for="node-input-model_id"><i class="icon-tag"></i> Model ID</label>
     <input type="text" id="node-input-model_id" placeholder="Model ID"/>
+    <br/>
+    <label for="node-input-max_new_tokens"><i class="icon-tag"></i> Max New Toksns</label>
+    <input type="text" id="node-input-max_new_tokens" placeholder="1000"/>
     <br/>
     <input type="checkbox" id="node-input-only_firstline"/>
      Only first phrase
