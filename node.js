@@ -64,7 +64,8 @@ module.exports = function( RED ){
             'project_id': project_id 
           };
   
-          axios.post( '/ml/v1-beta/generation/text?version=2023-05-29', data )
+          //axios.post( '/ml/v1-beta/generation/text?version=2023-05-29', data )
+          axios.post( '/ml/v1/generation/text?version=2023-05-29', data )
           .then( function( result ){
             //console.log( {result} );
             if( result && result.data && result.data.results ){
