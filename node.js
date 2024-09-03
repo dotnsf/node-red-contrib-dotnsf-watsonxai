@@ -1,5 +1,6 @@
 var axiosBase = require( 'axios' );
 
+var env_location = 'LOCATION' in process.env ? process.env.LOCATION : 'us-south'; 
 var env_apikey = 'APIKEY' in process.env ? process.env.APIKEY : ''; 
 var env_project_id = 'PROJECT_ID' in process.env ? process.env.PROJECT_ID : ''; 
 var env_model_id = 'MODEL_ID' in process.env ? process.env.MODEL_ID : 'ibm/granite-13b-chat-v2'; 
@@ -38,12 +39,12 @@ module.exports = function( RED ){
     });
   }
 
-  async function generateText( access_token, project_id, model_id, input, max_new_tokens ){
+  async function generateText( access_token, project_id, model_id, input, max_new_tokens, location ){
     return new Promise( function( resolve, reject ){
       if( access_token ){
         if( project_id && input && max_new_tokens ){
           var axios = axiosBase.create({
-            baseURL: 'https://us-south.ml.cloud.ibm.com',
+            baseURL: 'https://' + location + '.ml.cloud.ibm.com',
             responseType: 'json',
             headers: {
               'Authorization': 'Bearer ' + access_token,
@@ -93,6 +94,7 @@ module.exports = function( RED ){
       node.status( { fill: "green", shape: "dot", text: "..." } );
       var max_new_tokens = 900;
       var text = msg.payload;
+      var location = config.location;
       var apikey = config.apikey;
       var model_id = config.model_id;
       var project_id = config.project_id;
@@ -108,6 +110,7 @@ module.exports = function( RED ){
         }
       }
 
+      if( !location ){ location = env_location; }
       if( !apikey ){ apikey = env_apikey; }
       if( !project_id ){ project_id = env_project_id; }
       if( !model_id ){ model_id = env_model_id; }
@@ -115,7 +118,7 @@ module.exports = function( RED ){
       if( apikey && project_id ){
         var result0 = await getAccessToken( apikey );
         if( result0 && result0.status && result0.access_token ){
-          var result = await generateText( result0.access_token, project_id, model_id, text, max_new_tokens );
+          var result = await generateText( result0.access_token, project_id, model_id, text, max_new_tokens, location );
           if( result && result.status ){
             var results = result.results;
             if( results && results[0] && results[0].generated_text ){

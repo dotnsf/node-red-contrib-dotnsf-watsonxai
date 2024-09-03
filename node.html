@@ -4,9 +4,10 @@
     color: '#cccc99',
     defaults: {
       name: { value: '' },
+      location: { value: 'us-south' },
       apikey: { value: '' },
       project_id: { value: '' },
-      model_id: { value: 'ibm/mpt-7b-instruct2' },
+      model_id: { value: 'ibm/granite-13b-chat-v2' },
       max_new_tokens: { value: 1000 },
       only_firstline: { value: false }
     },
@@ -23,6 +24,9 @@
   <div class="form-row">
     <label for="node-input-name"><i class="icon-tag"></i> Name</label>
     <input type="text" id="node-input-name" placeholder="Name"/>
+    <br/>
+    <label for="node-input-location"><i class="icon-tag"></i> Location</label>
+    <input type="text" id="node-input-location" placeholder="Location"/>
     <br/>
     <label for="node-input-apikey"><i class="icon-tag"></i> API Key</label>
     <input type="text" id="node-input-apikey" placeholder="API Key"/>
