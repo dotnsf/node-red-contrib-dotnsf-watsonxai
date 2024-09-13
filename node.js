@@ -39,7 +39,7 @@ module.exports = function( RED ){
     });
   }
 
-  async function generateText( access_token, project_id, model_id, input, max_new_tokens, location ){
+  async function generateText( access_token, project_id, model_id, input, max_new_tokens, location, deployment_id ){
     return new Promise( function( resolve, reject ){
       if( access_token ){
         if( project_id && input && max_new_tokens ){
@@ -53,7 +53,7 @@ module.exports = function( RED ){
             }
           });
           var data = {
-            'model_id': model_id,
+            //'model_id': model_id,
             'input': input,
             'parameters': {
               "decoding_method": "greedy",
@@ -64,9 +64,16 @@ module.exports = function( RED ){
             },
             'project_id': project_id 
           };
+
+          if( !deployment_id && model_id ){
+            data.model_id = model_id;
+          }
+
+          var url_path = '/ml/v1/' + ( deployment_id ? 'deployments/' + deployment_id + '/' : '' ) + 'text/generation?version=2023-05-29';
   
           //axios.post( '/ml/v1-beta/generation/text?version=2023-05-29', data )
-          axios.post( '/ml/v1/text/generation?version=2023-05-29', data )
+          //axios.post( '/ml/v1/generation/text?version=2023-05-29', data )
+          axios.post( url_path, data )
           .then( function( result ){
             //console.log( {result} );
             if( result && result.data && result.data.results ){
@@ -98,6 +105,7 @@ module.exports = function( RED ){
       var apikey = config.apikey;
       var model_id = config.model_id;
       var project_id = config.project_id;
+      var deployment_id = config.deployment_id;
       var only_firstline = config.only_firstline;
 
       if( config.max_new_tokens ){
@@ -113,12 +121,12 @@ module.exports = function( RED ){
       if( !location ){ location = env_location; }
       if( !apikey ){ apikey = env_apikey; }
       if( !project_id ){ project_id = env_project_id; }
-      if( !model_id ){ model_id = env_model_id; }
+      //if( !model_id ){ model_id = env_model_id; }
       //console.log( {apikey} );
       if( apikey && project_id ){
         var result0 = await getAccessToken( apikey );
         if( result0 && result0.status && result0.access_token ){
-          var result = await generateText( result0.access_token, project_id, model_id, text, max_new_tokens, location );
+          var result = await generateText( result0.access_token, project_id, model_id, text, max_new_tokens, location, deployment_id );
           if( result && result.status ){
             var results = result.results;
             if( results && results[0] && results[0].generated_text ){

@@ -5,6 +5,7 @@
     defaults: {
       name: { value: '' },
       location: { value: 'us-south' },
+      deployment_id: { value: '' },
       apikey: { value: '' },
       project_id: { value: '' },
       model_id: { value: 'ibm/granite-13b-chat-v2' },
@@ -27,6 +28,9 @@
     <br/>
     <label for="node-input-location"><i class="icon-tag"></i> Location</label>
     <input type="text" id="node-input-location" placeholder="Location"/>
+    <br/>
+    <label for="node-input-deployment_id"><i class="icon-tag"></i> Deployment ID</label>
+    <input type="text" id="node-input-deployment_id" placeholder="Deployment ID"/>
     <br/>
     <label for="node-input-apikey"><i class="icon-tag"></i> API Key</label>
     <input type="text" id="node-input-apikey" placeholder="API Key"/>
