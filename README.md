@@ -25,7 +25,15 @@ At last, you would prepare [Node-RED](https://nodered.org/).
 
 4. You also need to edit **Project ID** field with your Project ID.
 
-5. Connect nodes. You have to input query text as **msg.payload** into watsonx.ai node. Then watsonx.ai node would output generated text in its **msg.payload**.
+5. You need to input one of followings:
+
+  - Model ID: ID specified for LLM
+
+  - Deployment ID: ID specified tuned LLM
+
+  - If you would input both, **Deployment ID** would be prioritized.
+
+6. Connect nodes. You have to input query text as **msg.payload** into watsonx.ai node. Then watsonx.ai node would output generated text in its **msg.payload**.
 
 
 ## Licensing
