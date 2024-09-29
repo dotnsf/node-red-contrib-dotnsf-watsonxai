@@ -82,7 +82,7 @@ module.exports = function( RED ){
               resolve( { status: false, error: 'no results found.' } );
             }
           }).catch( function( err ){
-            //console.log( {err} );
+            console.log( {err} );
             resolve( { status: false, error: err } );
           });
         }else{
@@ -118,10 +118,12 @@ module.exports = function( RED ){
         }
       }
 
+      /*
       if( !location ){ location = env_location; }
       if( !apikey ){ apikey = env_apikey; }
       if( !project_id ){ project_id = env_project_id; }
-      //if( !model_id ){ model_id = env_model_id; }
+      if( !model_id ){ model_id = env_model_id; }
+      */
       //console.log( {apikey} );
       if( apikey && project_id ){
         var result0 = await getAccessToken( apikey );
