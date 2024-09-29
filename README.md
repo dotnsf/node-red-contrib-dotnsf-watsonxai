@@ -23,17 +23,22 @@ At last, you would prepare [Node-RED](https://nodered.org/).
 
 3. Open properties box. You need to edit **API Key** field with your API Key.
 
-4. You also need to edit **Project ID** field with your Project ID.
+4. You need to input one of followings:
 
-5. You need to input one of followings:
+  - If you would use existed(non-tuned) LLM, you need to input ..
 
-  - Model ID: ID specified for LLM
+    - Project ID: ID specified for Project
+    - Model ID: ID specified for LLM
 
-  - Deployment ID: ID specified tuned LLM
+    - You don't need to input Deployment ID
 
-  - If you would input both, **Deployment ID** would be prioritized.
+  - If you would use tuned LLM(like this one), you need to input ..
 
-6. Connect nodes. You have to input query text as **msg.payload** into watsonx.ai node. Then watsonx.ai node would output generated text in its **msg.payload**.
+    - Deployment ID: ID specified tuned LLM
+
+    - You don't need to input Proejct ID nor Model ID
+
+5. Connect nodes. You have to input query text as **msg.payload** into watsonx.ai node. Then watsonx.ai node would output generated text in its **msg.payload**.
 
 
 ## Licensing
