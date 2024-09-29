@@ -54,7 +54,7 @@ module.exports = function( RED ){
           });
           var data = {
             //'model_id': model_id,
-            'input': input,
+            //'project_id': project_id,
             'parameters': {
               "decoding_method": "greedy",
               "max_new_tokens": max_new_tokens,
@@ -62,11 +62,12 @@ module.exports = function( RED ){
               "stop_sequences": [],
               "repetition_penalty": 1
             },
-            'project_id': project_id 
+            'input': input
           };
 
-          if( !deployment_id && model_id ){
+          if( !deployment_id && model_id && project_id ){
             data.model_id = model_id;
+            data.project_id = project_id;
           }
 
           var url_path = '/ml/v1/' + ( deployment_id ? 'deployments/' + deployment_id + '/' : '' ) + 'text/generation?version=2023-05-29';
@@ -131,6 +132,7 @@ module.exports = function( RED ){
           var result = await generateText( result0.access_token, project_id, model_id, text, max_new_tokens, location, deployment_id );
           if( result && result.status ){
             var results = result.results;
+            console.log( {results} );
             if( results && results[0] && results[0].generated_text ){
               var generated_text = results[0].generated_text;
               if( only_firstline ){
