@@ -42,7 +42,7 @@ module.exports = function( RED ){
   async function generateText( access_token, project_id, model_id, input, max_new_tokens, location, deployment_id ){
     return new Promise( function( resolve, reject ){
       if( access_token ){
-        if( project_id && input && max_new_tokens ){
+        if( input && max_new_tokens ){
           var axios = axiosBase.create({
             baseURL: 'https://' + location + '.ml.cloud.ibm.com',
             responseType: 'json',
@@ -87,7 +87,7 @@ module.exports = function( RED ){
             resolve( { status: false, error: err } );
           });
         }else{
-          resolve( { status: false, error: 'Parameter project_id, model_id, input, and/or max_new_tokens are not provided.' } );
+          resolve( { status: false, error: 'Parameter input, and/or max_new_tokens are not provided.' } );
         }
       }else{
         resolve( { status: false, error: 'access_token is null.' } );
