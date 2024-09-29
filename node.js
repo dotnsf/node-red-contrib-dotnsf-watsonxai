@@ -126,7 +126,7 @@ module.exports = function( RED ){
       if( !model_id ){ model_id = env_model_id; }
       */
       //console.log( {apikey} );
-      if( apikey && project_id ){
+      if( apikey ){
         var result0 = await getAccessToken( apikey );
         if( result0 && result0.status && result0.access_token ){
           var result = await generateText( result0.access_token, project_id, model_id, text, max_new_tokens, location, deployment_id );
